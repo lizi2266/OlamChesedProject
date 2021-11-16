@@ -1,0 +1,57 @@
+<form class="form-wrapper-modal-w" [formGroup]="form" (ngSubmit)="saveRequest()">
+    <h1 *ngIf="id ;else:newRequest"> עדכון בקשה מתאריך {{form.get('RequestDate').value}}</h1>
+    <ng-template #newRequest>
+        <h1>הוספת בקשה</h1>
+    </ng-template>
+
+    <h5>הכנסות</h5>
+
+    <p>
+        <mat-form-field appearance="legacy">
+            <mat-label> משכורת בעל</mat-label>
+            <input matInput formControlName="HusbandSalary" type="number">
+        </mat-form-field>
+    </p>
+
+    <p>
+        <mat-form-field appearance="legacy">
+            <mat-label>משכורת אישה</mat-label>
+            <input matInput formControlName="WifeSalary" type="number">
+        </mat-form-field>
+    </p>
+
+    <p>
+        <mat-form-field appearance="legacy">
+            <mat-label> סה"כ הכנסות</mat-label>
+            <input matInput formControlName="TotalRevenue" type="number" required>
+            <mat-error *ngIf="form.get('TotalRevenue').errors?.required">חובה להזין הכנסות</mat-error>
+        </mat-form-field>
+    </p>
+    <h5>מכר</h5>
+    <p>
+        <mat-form-field appearance="legacy">
+            <mat-label> שם מכר</mat-label>
+            <input matInput formControlName="Acquaintanes" type="text">
+        </mat-form-field>
+    </p>
+
+    <p>
+        <mat-form-field appearance="legacy">
+            <mat-label> טלפון מכר</mat-label>
+            <input matInput formControlName="AcquaintanesPhone" type="text" minlength="10" maxlength="10">
+            <mat-error *ngIf="form.get('AcquaintanesPhone').hasError('minlength')"> חובה להזין 10 תווים</mat-error>
+            <mat-error *ngIf="form.get('AcquaintanesPhone').hasError('maxlength')"> חובה להזין 10 תווים</mat-error>
+        </mat-form-field>
+    </p>
+
+
+    <!-- <p>
+      <mat-form-field appearance="legacy">
+          <mat-label>תאריך בקשה</mat-label>
+          <input matInput formControlName="RequestDate" type="datetime" qureired>
+      </mat-form-field>
+  </p> -->
+    <br>
+    <button mat-button type="submit" [disabled]="!form.valid" class="btn-color">שמור</button>
+
+</form>

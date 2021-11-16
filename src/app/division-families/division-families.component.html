@@ -1,0 +1,73 @@
+<div class="form-wrapper-large">
+    <h1 style="width: 400px;    direction: rtl;"> {{this.familyDetails_arr? this.familyDetails_arr.length:''}} משפחות לחלוקה נוכחית </h1>
+
+    <div class="footer-wrapper">
+
+
+        <button class="btn-color" (click)="getFamiliesByIds();">הצג משפחות</button>
+        <button class="btn-nocolor" (click)="closeListSupoort();">סגור רשימה</button>
+
+    </div>
+
+
+    <mat-form-field appearance="standard">
+        <mat-label>חיפוש</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="הכנס ערכים לחיפוש" #input>
+    </mat-form-field>
+
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="width: 100%;">
+        <ng-container matColumnDef="LastName">
+            <th mat-header-cell *matHeaderCellDef> שם משפחה </th>
+            <td mat-cell *matCellDef="let element"> {{ element ? element.LastName: ""}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="HusbandName">
+            <th mat-header-cell *matHeaderCellDef> שם הבעל </th>
+            <td mat-cell *matCellDef="let element"> {{ element ?element.HusbandName: ""}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="WifeName">
+            <th mat-header-cell *matHeaderCellDef> שם האישה </th>
+            <td mat-cell *matCellDef="let element"> {{ element ?element.WifeName: ""}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="FamilyStatus">
+            <th mat-header-cell *matHeaderCellDef> מצב משפחתי </th>
+            <td mat-cell *matCellDef="let element"> {{ element ?element.FamilyStatus: ""}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="NumberChildren">
+            <th mat-header-cell *matHeaderCellDef> מספר ילדים </th>
+            <td mat-cell *matCellDef="let element"> {{ element ?element.NumberChildren:""}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="IncomePerCapita">
+            <th mat-header-cell *matHeaderCellDef> הכנסה לנפש </th>
+            <td mat-cell *matCellDef="let element">{{ element ?element.IncomePerCapita:""}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="Address">
+            <th mat-header-cell *matHeaderCellDef> כתובת </th>
+            <td mat-cell *matCellDef="let element">{{ element ?element.Address:""}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="Action">
+            <th mat-header-cell *matHeaderCellDef> פעולות </th>
+            <td mat-cell *matCellDef="let element" class="wrapper-actions">
+                <mat-icon (click)="RemoveFamily(element.Id)">close</mat-icon>
+                <!-- <mat-icon (click)="AddRequestFamily(element.FamilyDetails.Id)">הוספת</mat-icon> -->
+
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        <!-- Row shown when there is no matching data. -->
+        <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">לא נמצאו נתונים</td>
+        </tr>
+
+    </table>
+    <mat-paginator [pageSizeOptions]="[10, 20,50]" showFirstLastButtons></mat-paginator>
+</div>

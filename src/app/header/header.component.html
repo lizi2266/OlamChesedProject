@@ -1,0 +1,15 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <span *ngIf="lastAllDivision">חלוקה {{lastAllDivision.AllDivisionsName}}</span>
+
+        <a mat-button routerLink="login" *ngIf="!isLogin" routerLinkActive="active_link"> התחברות </a>
+        <a mat-button routerLink="grid-support" *ngIf="isLogin" routerLinkActive="active_link"> בחירת משפחות </a>
+        <a mat-button routerLink="division-families" *ngIf="isLogin" routerLinkActive="active_link"> משפחות לחלוקה </a>
+        <a mat-button routerLink="set-divisions" *ngIf="isLogin" routerLinkActive="active_link"> חלוקה </a>
+        <a mat-button routerLink="all-divisions" *ngIf="isLogin" routerLinkActive="active_link"> כל החלוקות </a>
+
+        <a mat-button class="logout" (click)="logout();" *ngIf="isLogin">
+            <mat-icon>login</mat-icon>
+        </a>
+    </mat-toolbar-row>
+</mat-toolbar>

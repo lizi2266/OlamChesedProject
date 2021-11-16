@@ -1,0 +1,57 @@
+
+<!-- <form class="form-wrapper-modal-w" [formGroup]="form" (ngSubmit)="save()"> -->
+
+<form class="form-wrapper-modal-w"  (ngSubmit)="insertDataAndSendingMassege()">
+  
+ 
+      <h1>עריכת הודעה על מועד חלוקה</h1>
+ 
+  <hr>
+
+  <!-- <mat-form-field appearance="legacy"> -->
+      <mat-label>נושא ההודעה</mat-label>&nbsp;
+      <input [(ngModel)]="subject" mat-cell type="text"  [ngModelOptions]="{standalone: true}">
+  <!-- </mat-form-field> -->
+
+<br>
+<br>
+<!-- <mat-label>גוף ההודעה</mat-label>&nbsp;
+<input [(ngModel)]="message" mat-cell type="text"  [ngModelOptions]="{standalone: true}"> -->
+
+<mat-label> שעת החלוקה מ-</mat-label>&nbsp;
+<input [(ngModel)]="timefrom" mat-cell type="time"  [ngModelOptions]="{standalone: true}">
+<mat-label> עד-</mat-label>&nbsp;
+<input [(ngModel)]="timeto" mat-cell type="time"  [ngModelOptions]="{standalone: true}">
+
+
+
+<br>
+<br>
+    <!-- <mat-form-field appearance="legacy"> -->
+        <mat-label>תאריך החלוקה</mat-label>&nbsp;
+        <input [(ngModel)]="date" mat-cell type="date" [ngModelOptions]="{standalone: true}">
+    <!-- </mat-form-field> -->
+  
+<br>
+<br>
+    <!-- <mat-form-field appearance="legacy"> -->
+        <mat-label>נמען</mat-label>&nbsp;
+        <input [(ngModel)]="to" mat-cell type="text" [ngModelOptions]="{standalone: true}" >
+    <!-- </mat-form-field> -->
+  
+
+<br>
+<br>
+  <button mat-button type="submit" class="btn-color">שלח</button>
+</form>
+
+<!-- [disabled]="!form.valid -->
+
+
+
+<!-- <p>
+  <mat-form-field appearance="legacy">
+      <mat-label>הכנסה לנפש</mat-label>
+      <input matInput formControlName="IncomePerCapita" type="number" required>
+  </mat-form-field>
+  <mat-error *ngIf="form.get('IncomePerCapita').errors?.required">חובה להזין הכנסה לנפש</mat-error> -->

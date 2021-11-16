@@ -1,0 +1,42 @@
+
+<form class="container Absolute-Center form-wrapper" [formGroup]="form">
+    <br>
+    <h1>כניסה</h1>
+    <div class="row">
+
+        <mat-form-field appearance="auto">
+            <mat-label>הכנס שם משתמש</mat-label>
+            <input matInput placeholder="Placeholder" type="text" formControlName="UserName" required minlength="2">
+            <mat-error>
+                <span *ngIf="form.get('UserName').hasError('required')" style="font-size: 12px;"> חובה להזין שם</span>
+                <span *ngIf="form.get('UserName').hasError('minlength')" style="font-size: 12px;"> חובה להזין מינימום 2 תווים</span>
+            </mat-error>
+            <!-- <mat-hint>Hint</mat-hint> -->
+        </mat-form-field>
+    </div>
+    <br>
+    <div class="row">
+
+        <mat-form-field appearance="auto">
+            <mat-label> הכנס סיסמא</mat-label>
+
+            <input matInput [type]="hide ? 'password' : 'text'" formControlName="Password" required minlength="6" maxlength="10">
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+  <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+  </button>
+            <mat-error>
+                <span *ngIf="form.get('Password').hasError('required')" style="font-size: 12px;"> חובה להזין סיסמא</span>
+                <span *ngIf="form.get('Password').hasError('minlength')" style="font-size: 12px;"> חובה להזין מינימום 6 תווים</span>
+
+                <span *ngIf="form.get('Password').hasError('maxlength')" style="font-size: 12px;"> חובה להזין מקסימום 10 תווים</span>
+            </mat-error>
+        </mat-form-field>
+    </div>
+
+    <div>
+        <br>
+        <!-- <button mat-raised-button (click)="login(password)">שלח</button> -->
+        <button mat-raised-button (click)="login()" [disabled]="!form.valid" class="btn-color">שלח</button>
+
+    </div>
+</form>

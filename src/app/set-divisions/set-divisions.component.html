@@ -1,0 +1,61 @@
+<div class="form-wrapper-large">
+    <!-- <h1>מקומות חלוקה</h1>
+    <button mat-button class="btn-nocolor btn-close-div"> סגור חלוקה נוכחית</button> -->
+
+    <h3> בחר או הכנס מקומות חלוקה</h3>
+    <form [formGroup]="form" style="direction: rtl;">
+
+        <mat-form-field>
+            <mat-label>שם</mat-label>
+            <input matInput formControlName="DivisionName" type="text" required>
+            <mat-error *ngIf="form.get('DivisionName').errors?.required">חובה להזין שם</mat-error>
+        </mat-form-field> &nbsp;
+
+        <mat-form-field>
+            <mat-label>כתובת</mat-label>
+            <input matInput formControlName="DivisionsAddress" #searcha type="text" id="ship-address" name="ship-address" required>
+            <mat-error *ngIf="form.get('DivisionsAddress').errors?.required">חובה להזין כתובת</mat-error>
+        </mat-form-field>
+
+        <button mat-button type="submit" [disabled]="!form.valid" (click)="saveDivision()" class="btn-color">הוסף/עדכן נקודת חלוקה</button> &nbsp;
+
+    </form>
+
+
+
+    <h3>בחר נקודה מרשימה</h3>
+    <span *ngFor="let div of divisions" (click)="selectDivision(div.Id)" class="btn-color-2"> 
+      <strong>{{div.DivisionName}}</strong>  - {{div.DivisionsAddress}}
+    </span>
+    <br>
+    <br>
+    <!-- <h3>
+        מס הנקודות שנבחרו: {{divi.selectedOptions.selected.length}}
+    </h3> -->
+    <button type="button" (click)="PlacingFamiliesIntoPoints();" class="btn-color">שליחת הנקודות לשיבוץ המשפחות</button>
+    <br>
+
+    <mat-grid-list cols="4">
+
+        <mat-grid-tile *ngFor="let divisionFam of divisionsWithFamilies">
+            <mat-list class="w-100">
+                <mat-list-item>
+                    <h3 matLine class="first-line"> {{divisionFam.Division.DivisionName}} </h3>
+                    <div matLine *ngIf="divisionFam.Families; else noFamilies">
+
+
+                        <p *ngFor="let fam of divisionFam.Families" matLine> {{fam.LastName}},{{fam.Address}} </p>
+                    </div>
+                    <ng-template #noFamilies>
+                        <p matLine> אין משפחות בחלוקה זאת </p>
+                    </ng-template>
+                </mat-list-item>
+            </mat-list>
+        </mat-grid-tile>
+    </mat-grid-list>
+    <br>
+    <br>
+    <button type="button" (click)="enterMesseg();" class="btn-color">שליחת מייל על מיקום החלוקה למשפחות</button>
+    <br>
+
+</div>

@@ -1,0 +1,187 @@
+<div class="form-wrapper-large">
+    <h1 style="width: 400px;"> משפחות </h1>
+
+    <div class="footer-wrapper">
+        <mat-form-field class="select">
+            <mat-label>בחר פרמטר ראשון</mat-label>
+            <mat-select [(ngModel)]="select1SortId" (selectionChange)="selectSort($event.value, 1)" required>
+                <mat-option>--</mat-option>
+                <mat-option *ngFor="let sort of sorts" [value]="sort.key">
+                    {{sort.value}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="sortControl.hasError('required')">Please choose a parameter</mat-error>
+            <mat-hint>{{sortControl.value?.sound}}</mat-hint>
+        </mat-form-field>
+        &nbsp;
+        <mat-form-field class="select">
+            <mat-label>בחר פרמטר שני</mat-label>
+            <mat-select [(ngModel)]="select2SortId" (selectionChange)="selectSort($event.value, 2)" required>
+                <mat-option>--</mat-option>
+                <mat-option *ngFor="let sort of sorts2" [value]="sort.key">
+                    {{sort.value}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="sortControl.hasError('required')">Please choose a parameter</mat-error>
+            <mat-hint>{{sortControl.value?.sound}}</mat-hint>
+        </mat-form-field>
+        &nbsp;
+        <mat-form-field class="select">
+            <mat-label>בחר פרמטר שלישי</mat-label>
+            <mat-select [(ngModel)]="select3SortId" (selectionChange)="selectSort($event.value, 3)" required>
+                <mat-option>--</mat-option>
+                <mat-option *ngFor="let sort of sorts3" [value]="sort.key">
+                    {{sort.value}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="sortControl.hasError('required')">Please choose a parameter</mat-error>
+            <mat-hint>{{sortControl.value?.sound}}</mat-hint>
+        </mat-form-field>
+        &nbsp;
+        <mat-form-field class="select">
+            <mat-label>בחר פרמטר רביעי</mat-label>
+            <mat-select [(ngModel)]="select4SortId" required>
+                <mat-option>--</mat-option>
+                <mat-option *ngFor="let sort of sorts4" [value]="sort.key">
+                    {{sort.value}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="sortControl.hasError('required')">Please choose a parameter</mat-error>
+            <mat-hint>{{sortControl.value?.sound}}</mat-hint>
+        </mat-form-field>
+    </div>
+    <!-- כפתור להצגת רשימה ממוינת לפי הפרמטרים שנבחרו -->
+    <section>
+        <div class="example-button-row footer-wrapper">
+            <button mat-raised-button (click)="sortData(filterFamiliesId)" class="btn-color" [disabled]="select1SortId == null || select2SortId == null
+     ||select3SortId == null || select4SortId == null">שלח פרמטרים למיון</button>
+
+        </div>
+    </section>
+    <br>
+    <mat-radio-group *ngIf="!(select1SortId == null || select2SortId == null
+    ||select3SortId == null || select4SortId == null)" aria-label="Select an option " style="direction: rtl;" [(ngModel)]="filterFamiliesId ">
+        <mat-radio-button mat-radio-button.mat-accent.mat-radio-checked value="2" (change)="sortData($event.value)">הצגת כל המשפחות</mat-radio-button>&nbsp;&nbsp;
+        <mat-radio-button value="1" (change)="sortData($event.value)">הצג משפחות שהגישו בקשה</mat-radio-button>&nbsp;&nbsp;
+     
+        <!-- <mat-radio-button value="3" (change)="filterPayments($event.value) "בלה בלה בלה</mat-radio-button>
+        <mat-radio-button value="4" (change)="filterPayments($event.value) ">בלה בלה בלה</mat-radio-button> -->
+    </mat-radio-group>
+    <br>
+
+    <div class="mat-icon-wrapper h5">
+        <h5>לחץ כדי להוסיף משפחות לרשימה</h5>
+        <button mat-icon-button (click)="selectFamilys();" [disabled]="noSelectedRows">
+            <mat-icon class="mat-icon-right ">add_shopping_cart</mat-icon>
+         </button>
+
+
+        <!-- <mat-icon class="mat-icon-right " (click)="selectFamilys();" [disabled]="noSelectedRows">add_shopping_cart</mat-icon> -->
+    </div>
+
+    <div class="mat-icon-wrapper h5">
+        <h5>לחץ כדי ליצור משפחה חדשה</h5>
+        <mat-icon class="mat-icon-right " (click)="addFamily();">add_circle_outline</mat-icon>
+    </div>
+
+    <br>
+
+
+    <mat-form-field appearance="standard">
+        <mat-label>חיפוש</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="הכנס ערכים לחיפוש" #input>
+    </mat-form-field>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="width: 100%;">
+
+
+        <ng-container matColumnDef="select">
+            <th mat-header-cell *matHeaderCellDef>
+                <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()" [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+                </mat-checkbox>
+            </th>
+            <td mat-cell *matCellDef="let row">
+                <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selectRow(row) : null" [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+                </mat-checkbox>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="LastName">
+            <th mat-header-cell *matHeaderCellDef> שם משפחה </th>
+            <td mat-cell *matCellDef="let element"> {{ element.FamilyDetails ? element.FamilyDetails.LastName: ""}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="HusbandIdentity">
+            <th mat-header-cell *matHeaderCellDef> ת.ז בעל </th>
+            <td mat-cell *matCellDef="let element"> {{ element.FamilyDetails ? element.FamilyDetails.HusbandIdentity: ""}} </td>
+        </ng-container>
+
+
+
+        <ng-container matColumnDef="score">
+            <th mat-header-cell *matHeaderCellDef> ניקוד </th>
+            <td mat-cell *matCellDef="let element"> {{ element.score ? element.score: ""}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="HusbandName">
+            <th mat-header-cell *matHeaderCellDef> שם הבעל </th>
+            <td mat-cell *matCellDef="let element"> {{ element.FamilyDetails ?element.FamilyDetails.HusbandName: ""}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="WifeName">
+            <th mat-header-cell *matHeaderCellDef> שם האישה </th>
+            <td mat-cell *matCellDef="let element"> {{ element.FamilyDetails ?element.FamilyDetails.WifeName: ""}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="FamilyStatus">
+            <th mat-header-cell *matHeaderCellDef> מצב משפחתי </th>
+            <td mat-cell *matCellDef="let element"> {{ element.FamilyDetails ?element.FamilyDetails.FamilyStatus: ""}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="NumberChildren">
+            <th mat-header-cell *matHeaderCellDef> מספר ילדים </th>
+            <td mat-cell *matCellDef="let element"> {{ element.FamilyDetails ?element.FamilyDetails.NumberChildren:""}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="IsAccepted">
+            <th mat-header-cell *matHeaderCellDef> IsAccepted </th>
+            <td mat-cell *matCellDef="let element"> {{ element.FamilyDetails ?element.FamilyDetails.IsAccepted:""}}
+
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="IncomePerCapita">
+            <th mat-header-cell *matHeaderCellDef> הכנסה לנפש </th>
+            <td mat-cell *matCellDef="let element">{{ element.FamilyDetails ?element.FamilyDetails.IncomePerCapita:""}}
+
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="Actions">
+            <th mat-header-cell *matHeaderCellDef>פעולות</th>
+            <td mat-cell *matCellDef="let element" class="wrapper-actions">
+                <mat-icon (click)="editFamily(element.FamilyDetails.Id)">edit</mat-icon>
+                <!-- <mat-icon (click)="deleteUser(element.user.userId );">close</mat-icon> -->
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="AddRequest">
+            <th mat-header-cell *matHeaderCellDef>הוספה/עדכון בקשה</th>
+            <td mat-cell *matCellDef="let element" class="wrapper-actions">
+                <mat-icon (click)="AddRequestFamily(element.FamilyDetails.Id)">chrome_reader_mode</mat-icon>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="HistoryRequest">
+            <th mat-header-cell *matHeaderCellDef>כל הבקשות</th>
+            <td mat-cell *matCellDef="let element" class="wrapper-actions">
+                <mat-icon (click)="ViewHistoryRequest(element.FamilyDetails.Id)">history</mat-icon>
+            </td>
+        </ng-container>
+
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">לא נמצאו נתונים</td>
+        </tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[ 8, 20,50]" showFirstLastButtons></mat-paginator>
+</div>

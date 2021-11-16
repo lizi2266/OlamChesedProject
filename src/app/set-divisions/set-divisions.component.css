@@ -1,0 +1,15 @@
+#ship-address {
+    border: transparent;
+    height: 3.3vh;
+    width: 17vw;
+    border-bottom: white;
+}
+
+.first-line {
+    font-weight: bold;
+    color: #ffb100;
+}
+
+.btn-close-div {
+    float: left;
+}

@@ -1,0 +1,109 @@
+<div class="form-wrapper-large">
+    <h1 style="width: 400px;"> כל החלוקות </h1>
+    <h3>עדכן חלוקה נוכחית</h3>
+    <form [formGroup]="form" style="direction: rtl;">
+
+        <mat-form-field>
+            <mat-label> שם החלוקה</mat-label>
+            <input matInput formControlName="AllDivisionsName" type="text" required>
+            <mat-error *ngIf="form.get('AllDivisionsName').errors?.required">חובה להזין שם</mat-error>
+        </mat-form-field> &nbsp;&nbsp;
+
+        <mat-form-field>
+            <mat-label>תאריך החלוקה</mat-label>
+            <input matInput formControlName="AllDivisionsDate" type="date" required>
+            <mat-error *ngIf="form.get('AllDivisionsDate').errors?.required">חובה להזין תאריך</mat-error>
+        </mat-form-field>&nbsp;&nbsp;
+        <mat-form-field>
+            <mat-label>הערות</mat-label>
+            <textarea matInput rows="2" formControlName="AlldivisionsRemarks"  required style="max-width: 300px;"></textarea>
+            <mat-error *ngIf="form.get('AlldivisionsRemarks').errors?.required">חובה להזין הערות</mat-error>
+        </mat-form-field>
+        <button mat-button type="submit" [disabled]="!form.valid" (click)="saveAllDivision()" class="btn-color">עדכן
+            חלוקה</button> &nbsp;
+        <button mat-button type="submit" [disabled]="!form.valid" (click)="closeAllDivision()" class="btn-nocolor">סגור
+            חלוקה</button> &nbsp;
+
+    </form>
+
+
+
+
+    <h3> כל החלוקות</h3>
+    <!-- <h3> חלוקות  קודמות</h3> -->
+
+    <!-- <h4>בחר מועד חלוקה להצגה</h4> -->
+    <mat-form-field >
+        <mat-label>בחר מועד חלוקה להצגה</mat-label>
+        <mat-select [(ngModel)]="selectedValue" name="AllDivisions1"
+            (selectionChange)="selectAllDivision($event.value)">
+            <mat-option *ngFor="let aa of AllDivisions1" [value]="aa.Id">
+                {{aa.AllDivisionsName}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+
+
+    <!-- 
+    <mat-form-field appearance="standard">
+        <mat-label>חיפוש</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="הכנס ערכים לחיפוש" #input>
+    </mat-form-field> -->
+
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="width: 100%;">
+        <ng-container matColumnDef="LastName">
+            <th mat-header-cell *matHeaderCellDef> שם משפחה. </th>
+            <td mat-cell *matCellDef="let element"> {{ element ? element.LastName: ""}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="HusbandName">
+            <th mat-header-cell *matHeaderCellDef> שם הבעל. </th>
+            <td mat-cell *matCellDef="let element"> {{ element ?element.HusbandName: ""}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="WifeName">
+            <th mat-header-cell *matHeaderCellDef> שם האישה. </th>
+            <td mat-cell *matCellDef="let element"> {{ element ?element.WifeName: ""}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="FamilyStatus">
+            <th mat-header-cell *matHeaderCellDef> מצב משפחתי. </th>
+            <td mat-cell *matCellDef="let element"> {{ element ?element.FamilyStatus: ""}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="NumberChildren">
+            <th mat-header-cell *matHeaderCellDef> מספר ילדים. </th>
+            <td mat-cell *matCellDef="let element"> {{ element ?element.NumberChildren:""}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="IncomePerCapita">
+            <th mat-header-cell *matHeaderCellDef> הכנסה לנפש. </th>
+            <td mat-cell *matCellDef="let element">{{ element ?element.IncomePerCapita:""}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="Address">
+            <th mat-header-cell *matHeaderCellDef> כתובת. </th>
+            <td mat-cell *matCellDef="let element">{{ element ?element.Address:""}}</td>
+        </ng-container>
+
+        <!-- <ng-container matColumnDef="Action">
+            <th mat-header-cell *matHeaderCellDef> פעולות </th>
+            <td mat-cell *matCellDef="let element" class="wrapper-actions">
+                <mat-icon (click)="RemoveFamily(element.Id)">close</mat-icon>
+
+            </td>
+        </ng-container> -->
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">לא נמצאו נתונים</td>
+        </tr>
+
+    </table>
+    <mat-paginator [pageSizeOptions]="[10, 20,50]" showFirstLastButtons></mat-paginator>
+
+
+</div>

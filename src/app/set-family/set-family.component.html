@@ -1,0 +1,194 @@
+<form class="form-wrapper-modal-w" [formGroup]="form" (ngSubmit)="save()">
+
+    <h1 *ngIf="data && data.familyId;else:newFamily">עדכון משפחה</h1>
+    <ng-template #newFamily>
+        <h1>הוספת משפחה</h1>
+    </ng-template>
+
+    <h5>פרטים בסיסיים</h5>
+    <mat-form-field appearance="legacy">
+        <mat-label>שם משפחה</mat-label>
+        <input matInput formControlName="LastName" type="text" qureired>
+        <mat-error *ngIf="form.get('LastName').errors?.required"> חובה להזין שם.</mat-error>
+
+
+    </mat-form-field>
+
+
+
+    <mat-form-field appearance="legacy">
+        <mat-label>מייל</mat-label>
+        <input matInput formControlName="Mail" type="email">
+        <mat-error *ngIf="form.get('Mail').hasError('email')">כתובת מייל לא תקינה.</mat-error>
+
+    </mat-form-field>
+
+
+
+    <mat-form-field appearance="legacy">
+        <mat-label>סיסמא</mat-label>
+        <input matInput formControlName="Password" minlength="4" maxlength="12" type="password" required>
+        <mat-error *ngIf="form.get('Password').errors?.required">חובה להזין סיסמא</mat-error>
+        <mat-error *ngIf="form.get('Password').hasError('minlength')">חובה להזין מינימום 4 תוים.</mat-error>
+        <mat-error *ngIf="form.get('Password').hasError('maxlength')">יש להזין מקסימום 12 תוים.</mat-error>
+
+    </mat-form-field>
+
+    <h5>הבעל</h5>
+
+    <mat-form-field appearance="legacy">
+        <mat-label>שם הבעל</mat-label>
+        <input matInput formControlName="HusbandName" type="text">
+    </mat-form-field>
+
+
+
+
+    <mat-form-field appearance="legacy">
+        <mat-label>ת.ז בעל </mat-label>
+        <input matInput formControlName="HusbandIdentity" minlength="9" maxlength="9" type="text">
+        <mat-error *ngIf="form.get('HusbandIdentity').hasError('maxlength')">יש להזין 9 תוים.</mat-error>
+        <mat-error *ngIf="form.get('HusbandIdentity').hasError('minlength')">יש להזין 9 תוים.</mat-error>
+        <mat-error *ngIf="form.get('HusbandIdentity').hasError('pattern')">יש להזין 9 תוים.</mat-error>
+    </mat-form-field>
+
+
+
+
+    <mat-form-field appearance="legacy">
+        <mat-label>תאריך לידה בעל</mat-label>
+        <input matInput formControlName="HusbandBirthday" type="date">
+    </mat-form-field>
+
+
+
+    <h5>האשה</h5>
+
+    <mat-form-field appearance="legacy">
+        <mat-label>שם אישה</mat-label>
+        <input matInput formControlName="WifeName" type="text">
+    </mat-form-field>
+
+
+
+
+    <mat-form-field appearance="legacy">
+        <mat-label>ת.ז אישה</mat-label>
+        <input matInput formControlName="WifeId" minlength="9" maxlength="9" type="text">
+        <mat-error *ngIf="form.get('WifeId').hasError('maxlength')">יש להזין 9 תוים.</mat-error>
+        <mat-error *ngIf="form.get('WifeId').hasError('minlength')">יש להזין 9 תוים.</mat-error>
+        <mat-error *ngIf="form.get('WifeId').hasError('pattern')">יש להזין 9 תוים.</mat-error>
+    </mat-form-field>
+
+
+
+
+    <mat-form-field appearance="legacy">
+        <mat-label>תאריך לידה אישה</mat-label>
+        <input matInput formControlName="WifeBirthday" type="date">
+    </mat-form-field>
+
+
+
+    <h5>מידע נוסף</h5>
+    <mat-form-field appearance="legacy">
+        <mat-label>מגזר</mat-label>
+        <input matInput formControlName="Sector" type="text" required>
+        <mat-error *ngIf="form.get('Sector').errors?.required"> חובה להזין מגזר</mat-error>
+
+    </mat-form-field>
+
+
+
+    <mat-form-field appearance="legacy">
+        <mat-label>מצב משפחתי</mat-label>
+        <input matInput formControlName="FamilyStatus" type="text" requred>
+        <mat-error *ngIf="form.get('FamilyStatus').errors?.required"> חובה להזין מצב משפחתי</mat-error>
+
+    </mat-form-field>
+
+
+
+
+    <mat-form-field appearance="legacy">
+        <mat-label>מספר ילדים</mat-label>
+        <input matInput formControlName="NumberChildren" type="number" required>
+        <mat-error *ngIf="form.get('NumberChildren').errors?.required"> חובה להזין מספר ילדים</mat-error>
+
+    </mat-form-field>
+
+
+
+
+
+    <mat-form-field appearance="legacy">
+        <mat-label>כתובת</mat-label> <input matInput #searcha formControlName="Address" required>
+        <mat-error *ngIf="form.get('Address').errors?.required">חובה להזין כתובת</mat-error>
+    </mat-form-field>
+
+
+
+
+    <mat-form-field appearance="legacy">
+        <mat-label>מס קומה</mat-label>
+        <input matInput formControlName="NumFloor" minlength="1" maxlength="2" type="number">
+    </mat-form-field>
+
+
+
+
+    <mat-form-field appearance="legacy">
+        <mat-label>מס דירה</mat-label>
+        <input matInput formControlName="ApartmentNumber" minlength="1" maxlength="2" type="number">
+    </mat-form-field>
+
+
+
+    <mat-form-field appearance="legacy">
+        <mat-label> פלאפון/ טלפון</mat-label>
+        <input matInput formControlName="Phone" minlength="9" maxlength="10">
+        <mat-error *ngIf="form.get('Phone').hasError('minlength')"> חובה להזין מינימום 9 תווים</mat-error>
+        <mat-error *ngIf="form.get('Phone').hasError('maxlength')"> יש להזין מקסימום תווים</mat-error>
+
+    </mat-form-field>
+
+
+
+
+    <mat-form-field appearance="legacy">
+        <mat-label>פלאפון בעל</mat-label>
+
+        <input matInput formControlName="PhoneHusband" minlength="10" maxlength="10">
+        <mat-error *ngIf="form.get('PhoneHusband').hasError('minlength')"> חובה להזין 10 תווים</mat-error>
+        <mat-error *ngIf="form.get('PhoneHusband').hasError('maxlength')"> חובה להזין 10 תווים</mat-error>
+
+
+    </mat-form-field>
+
+
+
+
+    <mat-form-field appearance="legacy">
+        <mat-label>פלאפון אישה</mat-label>
+        <input matInput formControlName="PhoneWife" minlength="10" maxlength="10" required>
+        <mat-error *ngIf="form.get('PhoneWife').hasError('minlength')"> חובה להזין 10 תווים</mat-error>
+        <mat-error *ngIf="form.get('PhoneWife').hasError('maxlength')"> חובה להזין 10 תווים</mat-error>
+
+    </mat-form-field>
+
+
+
+
+
+    <mat-form-field appearance="legacy">
+        <mat-label>הכנסה לנפש</mat-label>
+        <input matInput formControlName="IncomePerCapita" type="number" required>
+        <mat-error *ngIf="form.get('IncomePerCapita').errors?.required">חובה להזין הכנסה לנפש</mat-error>
+
+    </mat-form-field>
+
+
+    <br>
+    <button mat-button type="submit" [disabled]="!form.valid" class="btn-color">שמור</button>
+    <br>
+</form>
