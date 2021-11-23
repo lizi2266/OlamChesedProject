@@ -9,10 +9,10 @@ import { RequestData } from "../entities/request";
   providedIn: "root",
 })
 export class RequestService {
-  url: string = "/api/ListSupportManagerPreferences/GetFamily";
-  urlBase = "https://localhost:44318/api/ListSupportManagerPreferences";
-  urlReq = environment.api + "/api/Request/";
-  // url: string = '/api/ListSupportManagerPreferences/GetFamilyByFilter';
+  url: string = "/ListSupportManagerPreferences/GetFamily";
+  urlBase =  environment.api + "/ListSupportManagerPreferences";
+  urlReq = environment.api + "/Request/";
+  // url: string = '/ListSupportManagerPreferences/GetFamilyByFilter';
 
   constructor(private http: HttpClient) {}
   getAll(): Observable<RequestData[]> {

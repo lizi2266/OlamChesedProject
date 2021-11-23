@@ -10,8 +10,8 @@ import { FamilyDetails } from '../entities/familyDetails';
 })
 export class FamilyDetailsService {
 
-  url: string = environment.api +'/api/ListSupportManagerPreferences/GetFamilyByFilter';
-  url1 = environment.api + '/api/CreateFamily/';
+  url: string = environment.api +'/ListSupportManagerPreferences/GetFamilyByFilter';
+  url1 = environment.api + '/CreateFamily/';
   form: any;
   service: any;
   rourer: any;

@@ -3,15 +3,16 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { FamilyWithScore } from '../entities/FamilyWithScore';
 import { FamilyDetails } from '../entities/familyDetails';
+import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
 export class FamilyWithScoreService {
  
 
-  url2 = "/api/FamilyDetails";
-  url: string = '/api/ListSupportManagerPreferences/GetFamily';
-  urlBase = 'https://localhost:44318/api/ListSupportManagerPreferences';
+  url2 = "/FamilyDetails";
+  url: string = '/ListSupportManagerPreferences/GetFamily';
+  urlBase =   environment.api +'/ListSupportManagerPreferences';
   constructor(private http: HttpClient) { }
 
   getAll() {

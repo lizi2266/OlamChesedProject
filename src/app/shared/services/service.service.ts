@@ -9,7 +9,7 @@ import { Manager } from '../entities/Manager';
 })
 export class ServiceService {
 
-  url = environment.api + '/api/manager/';
+  url = environment.api + '/manager/';
   userLogin = new Subject<boolean>();
   constructor(private http: HttpClient) { }
 

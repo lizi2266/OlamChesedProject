@@ -10,7 +10,7 @@ import { FamilyDetailsService } from "./family-details.service";
   providedIn: 'root'
 })
 export class AllDivisionsService {
-  url: string = environment.api + "/api/AllDivisions/";
+  url: string = environment.api + "/AllDivisions/";
   lastDivision = new Subject<boolean>();
 
   constructor(private http: HttpClient) { }

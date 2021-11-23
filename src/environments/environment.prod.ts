@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  api:"https://localhost:44318",
+  api:"http://tripopolam-map.somee.com/root/api",
+  //http://tripopolam-map.somee.com/root/
 };

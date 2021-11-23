@@ -8,7 +8,7 @@ import { DivisionsWithFamilies } from "../entities/DivisionsWithFamilies";
   providedIn: "root",
 })
 export class DivisionsPointsService {
-  url: string = environment.api + "/api/Division/";
+  url: string = environment.api + "/Division/";
 
   constructor(private http: HttpClient) {}
 
